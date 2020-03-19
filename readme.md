@@ -5,7 +5,7 @@
 - pip install requirements.txt
 - Create scheama from schema.sql
 
-####Create config/db.yaml
+#### Create config/db.yaml
 
 - mysql_host: 'your mysql host eg. localhost'
 - mysql_user: 'mysql db user'
@@ -13,7 +13,7 @@
 - mysql_db: 'db name'
 
 
-####Create twitter.yaml
+#### Create twitter.yaml
 
 Generate your API key on:
 https://developer.twitter.com/en/apps
@@ -22,3 +22,6 @@ https://developer.twitter.com/en/apps
 - consumer_secret: 'twitter consumer secret key'
 - access_token_key: 'twitter api token'
 - access_token_secret: 'twitter api token secret'
+
+#### TO DO:
+- pip frezee -> requirements.txt
