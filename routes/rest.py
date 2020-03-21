@@ -49,9 +49,15 @@ def get_users_analysiss_overall():
         queryStrings.append('SELECT COUNT(*) from ' + table_name + ';')
         queryStrings.append('SELECT COUNT(*) from ' + table_name + ' WHERE is_retweeted = 1;')
         queryStrings.append('SELECT AVG(sentiment_polarity) from ' + table_name + ';')
-        queryStrings.append('SELECT AVG(sentiment_polarity) from ' + table_name + ' WHERE is_retweeted = 1;')
+        queryStrings.append('SELECT AVG(sentiment_polarity) from ' + table_name + ' WHERE is_retweeted = 0;')
         queryStrings.append('SELECT AVG(sentiment_subjectivity) from ' + table_name + ';')
         queryStrings.append('SELECT AVG(sentiment_polarity) from ' + table_name + ' WHERE sentiment_polarity <> 0;')
+        queryStrings.append('SELECT COUNT(*) from ' + table_name + ' WHERE sentiment_polarity > 0;')
+        queryStrings.append('SELECT COUNT(*) from ' + table_name + ' WHERE sentiment_polarity < 0;')
+        queryStrings.append('SELECT COUNT(*) from ' + table_name + ' WHERE sentiment_polarity = 0;')
+        queryStrings.append('SELECT COUNT(*) from ' + table_name + ' WHERE is_retweeted = 0 AND sentiment_polarity > 0;')
+        queryStrings.append('SELECT COUNT(*) from ' + table_name + ' WHERE is_retweeted = 0 AND sentiment_polarity < 0;')
+        queryStrings.append('SELECT COUNT(*) from ' + table_name + ' WHERE is_retweeted = 0 AND sentiment_polarity = 0;')
 
         cur = mysql.connection.cursor()
 
@@ -67,7 +73,13 @@ def get_users_analysiss_overall():
                     'average_sentiment_polarity': amounts[2],
                    'average_sentiment_polarity_without_retweets': amounts[3],
                    'average_sentiment_subjectivity': amounts[4],
-                   'average_sentiment_polarity_without_neutral': amounts[5]
+                   'average_sentiment_polarity_without_neutral': amounts[5],
+                   'classified_positive': amounts[6],
+                   'classified_negative': amounts[7],
+                   'classified_neutral': amounts[8],
+                   'classified_positive_without_retweets': amounts[9],
+                   'classified_negative_without_retweets': amounts[10],
+                   'classified_neutral_without_retweets': amounts[11]
                    }
         payload.append(content)
     return jsonify(payload)
@@ -82,9 +94,15 @@ def get_search_analysiss_overall():
         queryStrings.append('SELECT COUNT(*) from ' + table_name + ';')
         queryStrings.append('SELECT COUNT(*) from ' + table_name + ' WHERE is_retweeted = 1;')
         queryStrings.append('SELECT AVG(sentiment_polarity) from ' + table_name + ';')
-        queryStrings.append('SELECT AVG(sentiment_polarity) from ' + table_name + ' WHERE is_retweeted = 1;')
+        queryStrings.append('SELECT AVG(sentiment_polarity) from ' + table_name + ' WHERE is_retweeted = 0;')
         queryStrings.append('SELECT AVG(sentiment_subjectivity) from ' + table_name + ';')
         queryStrings.append('SELECT AVG(sentiment_polarity) from ' + table_name + ' WHERE sentiment_polarity <> 0;')
+        queryStrings.append('SELECT COUNT(*) from ' + table_name + ' WHERE sentiment_polarity > 0;')
+        queryStrings.append('SELECT COUNT(*) from ' + table_name + ' WHERE sentiment_polarity < 0;')
+        queryStrings.append('SELECT COUNT(*) from ' + table_name + ' WHERE sentiment_polarity = 0;')
+        queryStrings.append('SELECT COUNT(*) from ' + table_name + ' WHERE is_retweeted = 0 AND sentiment_polarity > 0;')
+        queryStrings.append('SELECT COUNT(*) from ' + table_name + ' WHERE is_retweeted = 0 AND sentiment_polarity < 0;')
+        queryStrings.append('SELECT COUNT(*) from ' + table_name + ' WHERE is_retweeted = 0 AND sentiment_polarity = 0;')
 
         cur = mysql.connection.cursor()
 
@@ -100,7 +118,145 @@ def get_search_analysiss_overall():
                    'average_sentiment_polarity': amounts[2],
                    'average_sentiment_polarity_without_retweets': amounts[3],
                    'average_sentiment_subjectivity': amounts[4],
-                   'average_sentiment_polarity_without_neutral': amounts[5]
+                   'average_sentiment_polarity_without_neutral': amounts[5],
+                   'classified_positive' : amounts[6],
+                   'classified_negative' : amounts[7],
+                   'classified_neutral' : amounts[8],
+                   'classified_positive_without_retweets': amounts[9],
+                   'classified_negative_without_retweets': amounts[10],
+                   'classified_neutral_without_retweets': amounts[11]
                    }
+        payload.append(content)
+    return jsonify(payload)
+
+# remember to use without # character
+# use YYYY-MM-DD format date ex. 2020-02-05, will be rewritten to use json request
+@twitter_blueprint.route('/getSearchAnalysissAggregatedByDays/collectedTweets/<search>/<from_date>/<to_date>')
+def get_search_analysiss_aggregated_collected_tweets(search, from_date, to_date):
+    search = '#' + search
+    table_name = constants.SEARCH_TAGS[search]
+    payload = []
+    queryString = 'SELECT CONCAT(YEAR(tweet_creation), "-", MONTH(tweet_creation), "-", DAY(tweet_creation)), COUNT(*) FROM ' + table_name + ' WHERE tweet_creation BETWEEN CAST("' + from_date + '" AS DATE) AND CAST("' + to_date + '" AS DATE) GROUP BY YEAR(tweet_creation), MONTH(tweet_creation), DAY(tweet_creation);'
+    cur = mysql.connection.cursor()
+    cur.execute(queryString)
+    amounts = cur.fetchall()
+    for amount in amounts:
+        content = {'date': amount[0],
+                   'collected_tweets': amount[1]}
+        payload.append(content)
+    return jsonify(payload)
+
+# remember to use without # character
+# use YYYY-MM-DD format date ex. 2020-02-05, will be rewritten to use json request
+@twitter_blueprint.route('/getSearchAnalysissAggregatedByDays/collectedRetweets/<search>/<from_date>/<to_date>')
+def get_search_analysiss_aggregated_collected_retweets(search, from_date, to_date):
+    search = '#' + search
+    table_name = constants.SEARCH_TAGS[search]
+    payload = []
+    queryString = 'SELECT CONCAT(YEAR(tweet_creation), "-", MONTH(tweet_creation), "-", DAY(tweet_creation)), COUNT(*) FROM ' + table_name + ' WHERE is_retweeted = 1 AND tweet_creation BETWEEN CAST("' + from_date + '" AS DATE) AND CAST("' + to_date + '" AS DATE) GROUP BY YEAR(tweet_creation), MONTH(tweet_creation), DAY(tweet_creation);'
+    cur = mysql.connection.cursor()
+    cur.execute(queryString)
+    amounts = cur.fetchall()
+    for amount in amounts:
+        content = {'date': amount[0],
+                   'collected_retweets': amount[1]}
+        payload.append(content)
+    return jsonify(payload)
+
+# remember to use without # character
+# use YYYY-MM-DD format date ex. 2020-02-05, will be rewritten to use json request
+@twitter_blueprint.route('/getSearchAnalysissAggregatedByDays/averageSentimentPolarity/<search>/<from_date>/<to_date>')
+def get_search_analysiss_aggregated_average_sentiment_polarity(search, from_date, to_date):
+    search = '#' + search
+    table_name = constants.SEARCH_TAGS[search]
+    payload = []
+    queryString = 'SELECT CONCAT(YEAR(tweet_creation), "-", MONTH(tweet_creation), "-", DAY(tweet_creation)), AVG(sentiment_polarity) FROM ' + table_name + ' WHERE tweet_creation BETWEEN CAST("' + from_date + '" AS DATE) AND CAST("' + to_date + '" AS DATE) GROUP BY YEAR(tweet_creation), MONTH(tweet_creation), DAY(tweet_creation);'
+    cur = mysql.connection.cursor()
+    cur.execute(queryString)
+    amounts = cur.fetchall()
+    for amount in amounts:
+        content = {'date': amount[0],
+                   'average_sentiment_polarity': amount[1]}
+        payload.append(content)
+    return jsonify(payload)
+
+# remember to use without # character
+# use YYYY-MM-DD format date ex. 2020-02-05, will be rewritten to use json request
+@twitter_blueprint.route('/getSearchAnalysissAggregatedByDays/averageSentimentPolarityWithoutRetweets/<search>/<from_date>/<to_date>')
+def get_search_analysiss_aggregated_average_sentiment_polarity_without_retweets(search, from_date, to_date):
+    search = '#' + search
+    table_name = constants.SEARCH_TAGS[search]
+    payload = []
+    queryString = 'SELECT CONCAT(YEAR(tweet_creation), "-", MONTH(tweet_creation), "-", DAY(tweet_creation)), AVG(sentiment_polarity) FROM ' + table_name + ' WHERE is_retweeted = 0 AND tweet_creation BETWEEN CAST("' + from_date + '" AS DATE) AND CAST("' + to_date + '" AS DATE) GROUP BY YEAR(tweet_creation), MONTH(tweet_creation), DAY(tweet_creation);'
+    cur = mysql.connection.cursor()
+    cur.execute(queryString)
+    amounts = cur.fetchall()
+    for amount in amounts:
+        content = {'date': amount[0],
+                   'average_sentiment_polarity_without_retweets': amount[1]}
+        payload.append(content)
+    return jsonify(payload)
+
+# remember to use without # character
+# use YYYY-MM-DD format date ex. 2020-02-05, will be rewritten to use json request
+@twitter_blueprint.route('/getSearchAnalysissAggregatedByDays/averageSentimentSubjectivity/<search>/<from_date>/<to_date>')
+def get_search_analysiss_aggregated_average_sentiment_subjectivity(search, from_date, to_date):
+    search = '#' + search
+    table_name = constants.SEARCH_TAGS[search]
+    payload = []
+    queryString = 'SELECT CONCAT(YEAR(tweet_creation), "-", MONTH(tweet_creation), "-", DAY(tweet_creation)), AVG(sentiment_subjectivity) FROM ' + table_name + ' WHERE tweet_creation BETWEEN CAST("' + from_date + '" AS DATE) AND CAST("' + to_date + '" AS DATE) GROUP BY YEAR(tweet_creation), MONTH(tweet_creation), DAY(tweet_creation);'
+    cur = mysql.connection.cursor()
+    cur.execute(queryString)
+    amounts = cur.fetchall()
+    for amount in amounts:
+        content = {'date': amount[0],
+                   'average_sentiment_subjectivity': amount[1]}
+        payload.append(content)
+    return jsonify(payload)
+
+# remember to use without # character
+# use YYYY-MM-DD format date ex. 2020-02-05, will be rewritten to use json request
+@twitter_blueprint.route('/getSearchAnalysissAggregatedByDays/countPositive/<search>/<from_date>/<to_date>')
+def get_search_analysiss_aggregated_count_positive(search, from_date, to_date):
+    search = '#' + search
+    table_name = constants.SEARCH_TAGS[search]
+    payload = []
+    queryString = 'SELECT CONCAT(YEAR(tweet_creation), "-", MONTH(tweet_creation), "-", DAY(tweet_creation)), COUNT(*) FROM ' + table_name + ' WHERE sentiment_polarity > 0 AND tweet_creation BETWEEN CAST("' + from_date + '" AS DATE) AND CAST("' + to_date + '" AS DATE) GROUP BY YEAR(tweet_creation), MONTH(tweet_creation), DAY(tweet_creation);'
+    cur = mysql.connection.cursor()
+    cur.execute(queryString)
+    amounts = cur.fetchall()
+    for amount in amounts:
+        content = {'date': amount[0],
+                   'classified_positive': amount[1]}
+        payload.append(content)
+    return jsonify(payload)
+
+@twitter_blueprint.route('/getSearchAnalysissAggregatedByDays/countNegative/<search>/<from_date>/<to_date>')
+def get_search_analysiss_aggregated_count_negative(search, from_date, to_date):
+    search = '#' + search
+    table_name = constants.SEARCH_TAGS[search]
+    payload = []
+    queryString = 'SELECT CONCAT(YEAR(tweet_creation), "-", MONTH(tweet_creation), "-", DAY(tweet_creation)), COUNT(*) FROM ' + table_name + ' WHERE sentiment_polarity < 0 AND tweet_creation BETWEEN CAST("' + from_date + '" AS DATE) AND CAST("' + to_date + '" AS DATE) GROUP BY YEAR(tweet_creation), MONTH(tweet_creation), DAY(tweet_creation);'
+    cur = mysql.connection.cursor()
+    cur.execute(queryString)
+    amounts = cur.fetchall()
+    for amount in amounts:
+        content = {'date': amount[0],
+                   'classified_negative': amount[1]}
+        payload.append(content)
+    return jsonify(payload)
+
+@twitter_blueprint.route('/getSearchAnalysissAggregatedByDays/countNeutral/<search>/<from_date>/<to_date>')
+def get_search_analysiss_aggregated_count_neutral(search, from_date, to_date):
+    search = '#' + search
+    table_name = constants.SEARCH_TAGS[search]
+    payload = []
+    queryString = 'SELECT CONCAT(YEAR(tweet_creation), "-", MONTH(tweet_creation), "-", DAY(tweet_creation)), COUNT(*) FROM ' + table_name + ' WHERE sentiment_polarity = 0 AND tweet_creation BETWEEN CAST("' + from_date + '" AS DATE) AND CAST("' + to_date + '" AS DATE) GROUP BY YEAR(tweet_creation), MONTH(tweet_creation), DAY(tweet_creation);'
+    cur = mysql.connection.cursor()
+    cur.execute(queryString)
+    amounts = cur.fetchall()
+    for amount in amounts:
+        content = {'date': amount[0],
+                   'classified_neutral': amount[1]}
         payload.append(content)
     return jsonify(payload)
