@@ -27,7 +27,10 @@ https://developer.twitter.com/en/apps
 #### TO DO:
 - pip frezee -> requirements.txt
 - rewrite to use SqlAlchemy
+- use json requests (some endpoints takes date as a string - temporary solution)
 
 #### Remember to:
 - perform batch transactions
 
+#### Frontend
+in "my-app" directory
