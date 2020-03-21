@@ -1,0 +1,30 @@
+*
+    margin: 0 
+    padding: 0
+    box-sizing: border-box
+    
+    
+.app
+    min-height: 100vh
+    font-family: 'Montserrat', sans-serif
+    min-width: 320px
+    width: 100%
+    overflow: hidden
+    font-family: 'Baloo Chettan 2', cursive
+    position: relative
+    @media (min-width: 768px)
+        display: flex
+        flex-direction: row
+
+    
+    &__bar
+        position: absolute
+        top: 20px
+        left: 20px
+        font-size: 24px
+        display: none
+        &--active
+            display: block
+            @media (min-width: 768px)
+                display: none
+                

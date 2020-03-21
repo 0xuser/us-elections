@@ -1,0 +1,17 @@
+[
+    {
+    "tag": "Trump",
+    "positiveAmount": 66,
+    "negativeAmount": 37
+    },
+    {
+    "tag": "Putin",
+    "positiveAmount": 23,
+    "negativeAmount": 77
+    },
+    {
+    "tag": "Duda",
+    "positiveAmount": 80,
+    "negativeAmount": 20
+    }
+    ]
