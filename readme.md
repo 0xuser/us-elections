@@ -13,8 +13,7 @@
 - mysql_password: 'user password'
 - mysql_db: 'db name'
 
-
-#### Create twitter.yaml
+#### Create config/twitter.yaml
 
 Generate your API key on:
 https://developer.twitter.com/en/apps
@@ -27,9 +26,8 @@ https://developer.twitter.com/en/apps
 #### TO DO:
 - pip frezee -> requirements.txt
 - rewrite to use SqlAlchemy
+- use Twitter streams
 - use json requests (some endpoints takes date as a string - temporary solution)
-
-#### Remember to:
 - perform batch transactions
 
 #### Frontend
