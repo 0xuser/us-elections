@@ -3,7 +3,8 @@
 - python 3.7.7
 - pip install mysqlclient-1.4.6-cp37-cp37m-win_amd64.whl
 - pip install requirements.txt
-- Create scheama from schema.sql
+- create scheama from schema.sql
+- change absolute paths
 
 #### Create config/db.yaml
 
@@ -25,4 +26,8 @@ https://developer.twitter.com/en/apps
 
 #### TO DO:
 - pip frezee -> requirements.txt
+- rewrite to use SqlAlchemy
+
+#### Remember to:
+- perform batch transactions
 
