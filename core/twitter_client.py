@@ -88,7 +88,7 @@ def retrieve_users_tweets(username_id, since_post_id, table_name, max_records):
         i -= 1
 
 def get_user_info(username_id):
-    user_info = api.get_user(id = 25073877)#.name
+    user_info = api.get_user(id = username_id)
     return user_info
 
 
