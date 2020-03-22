@@ -3,14 +3,13 @@ import {BrowserRouter} from 'react-router-dom'
 import SideBar from './SideBar.js'
 import Page from './Page.js'
 import '../sass/App.sass'
-import data from '../data.json'
+
 
 class App extends Component {
     constructor(props) {
       super(props)
       this.state = {
-        active: false,
-        data: data
+        active: false
       }
     }
 
@@ -31,7 +30,7 @@ class App extends Component {
             {<SideBar  handleClick={this.handleClick}/>}
           </div>
           <main className="main">
-            {<Page data={this.state.data}/>}
+            {<Page/>}
           </main>
         </div>
       </BrowserRouter>

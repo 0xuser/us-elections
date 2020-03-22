@@ -3,19 +3,20 @@ import {NavLink} from 'react-router-dom'
 import '../sass/SideBar.sass'
 
 const linkList = [
-    {name: "Describe", path: "/", exact: true},
-    {name: "Tag analysis", path: "/tags"},
-    {name: "Users", path: "/users"},
-    {name: "Portfolio", path: "/other"},
+    {name: "Kandydaci", path: "/", exact: true},
+    {name: "Podsumowanie kandydatów", path: "/summary"},
+    {name: "Wyszukiwania", path: "/search"},
+    {name: "Ogólne", path: "/overall"},
 ]
 
 
 const SideBar = (props) => {
+
     const singleItemList = linkList.map((item,index) => 
         <li className="nav__item" data-id={index} key={item.name}>
             <NavLink to={item.path} exact={item.exact ? item.exact : false} className='nav__link' activeClassName='nav__link--active'>
                 <div className="nav__linkContainer">
-                    <p className="nav__linkName">{item.name}</p>
+                    <p className="nav__linkName" onClick={props.handleClick}>{item.name}</p>
                 </div>
             </NavLink>
         </li>
