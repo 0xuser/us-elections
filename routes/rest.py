@@ -28,6 +28,7 @@ def get_tracked_searches():
 @twitter_blueprint.route('/getUser/<username_id>')
 def get_user(username_id):
     user_info = get_user_info(username_id)
+    profile_image_full_url = user_info.profile_image_url.replace("normal", "400x400")
     content = {'id': username_id,
                'name': user_info.name,
                'twitter_name' : user_info.screen_name,
@@ -36,6 +37,7 @@ def get_user(username_id):
                'url' : user_info.url,
                'followers_count' : user_info.followers_count,
                'profile_image_url' : user_info.profile_image_url,
+               'profile_image_full_url': profile_image_full_url,
                'profile_banner_url' : user_info.profile_banner_url}
     return jsonify(content)
 
