@@ -44,6 +44,7 @@ def get_user(username_id):
 @twitter_blueprint.route('/getUsersAnalysissOverall')
 def get_users_analysiss_overall():
     payload = []
+    data = []
     for username in constants.TRACKING_USERS:
         table_name = 'user_tweets_' + username.lower()
 
@@ -62,15 +63,13 @@ def get_users_analysiss_overall():
         queryStrings.append('SELECT COUNT(*) from ' + table_name + ' WHERE is_retweeted = 0 AND sentiment_polarity = 0;')
 
         cur = mysql.connection.cursor()
-
         amounts = []
         for query in queryStrings:
             cur.execute(query)
             amount = cur.fetchone()
             amounts.append(amount[0])
 
-        content = {'username': username,
-                   'collected_tweets': amounts[0],
+        content = {'collected_tweets': amounts[0],
                    'retweets_in_collected': amounts[1],
                     'average_sentiment_polarity': amounts[2],
                    'average_sentiment_polarity_without_retweets': amounts[3],
@@ -81,14 +80,17 @@ def get_users_analysiss_overall():
                    'classified_neutral': amounts[8],
                    'classified_positive_without_retweets': amounts[9],
                    'classified_negative_without_retweets': amounts[10],
-                   'classified_neutral_without_retweets': amounts[11]
-                   }
-        payload.append(content)
+                   'classified_neutral_without_retweets': amounts[11]}
+        row = {username: content}
+        data.append(row)
+    payload.append({'data': data})
+    payload.append({'summary': {'total': len(data)}})
     return jsonify(payload)
 
 @twitter_blueprint.route('/getSearchAnalysissOverall')
 def get_search_analysiss_overall():
     payload = []
+    data = []
     for search in constants.SEARCH_TAGS:
         table_name = constants.SEARCH_TAGS[search]
 
@@ -114,7 +116,7 @@ def get_search_analysiss_overall():
             amount = cur.fetchone()
             amounts.append(amount[0])
 
-        content = {'search': search,
+        content = {
                    'collected_tweets': amounts[0],
                    'retweets_in_collected': amounts[1],
                    'average_sentiment_polarity': amounts[2],
@@ -128,7 +130,10 @@ def get_search_analysiss_overall():
                    'classified_negative_without_retweets': amounts[10],
                    'classified_neutral_without_retweets': amounts[11]
                    }
-        payload.append(content)
+        row = {search: content}
+        data.append(row)
+    payload.append({'data': data})
+    payload.append({'summary': {'total': len(data)}})
     return jsonify(payload)
 
 # remember to use without # character
