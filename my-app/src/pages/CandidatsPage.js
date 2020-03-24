@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import CandidatSingleInfo from '../components/CandidatSingleInfo'
+import CandidatSingleInfo from './CandidatSingleInfo'
 import '../sass/CandidatsPage.sass'
-
+import WhiteHouse from "../images/WhiteHouse.png"
 
 class CandidatsPage extends Component {
     constructor(props){
@@ -13,7 +13,7 @@ class CandidatsPage extends Component {
 
 
     componentDidMount = () => {
-        fetch("http://localhost:5000/api/getTrackedUsers")
+        fetch(`${this.props.path}api/getTrackedUsers`)
         .then(resp => resp.json())
         .then(data => {
             const candidates = [];
@@ -25,11 +25,12 @@ class CandidatsPage extends Component {
 
 
     render () {
-        const singleCandidat = this.state.candidats.map((single,index) => <CandidatSingleInfo key={index} id={single.username_id}/>)
+        const singleCandidat = this.state.candidats.map((single,index) => <CandidatSingleInfo key={index} id={single.username_id} path={this.props.path}/>)
 
         return ( 
         <div className="main__candidatsPage candidats">
-            <h2 className="candidats__title">Aktualni kandydaci na prezydenta USA</h2>
+            <img className="candidats__whiteH" src={WhiteHouse} alt="White House"/>
+            <h2 className="candidats__title">Kto zostanie prezydentem Prezydentem Stanów Zjednoczonych w 2020r. ?</h2>
             <div className="candidats__container">
                 {singleCandidat}
             </div>

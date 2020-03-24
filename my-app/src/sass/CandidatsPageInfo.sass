@@ -3,30 +3,131 @@
         flex-direction: column
         width: 90%
         margin: 0 auto
-        @media (min-width: 768px)
+        @media (min-width: 812px)
             flex-direction: row
-            justify-content: center
-        @media (min-width: 1280px)
-            flex-wrap: wrap
         .candidats__single, .candidat
-            min-height: 200px
-            margin: 5px
-            border: 1px solid black
+            height: 350px
+            margin: 10px 5px
+            display: flex
+            flex-direction: column
+            @media (min-width: 568px)
+                height: 300px
             @media (min-width: 768px)
-                flex-basis: calc(100%/3 - 10px)
-                max-width: 400px
-            @media (min-width: 1280px)
-                flex-basis: calc(50% - 10px)   
-                &--big
-                    flex-basis: 100%
-                 
-            .candidat__name
-                text-align: center
-                font-weight: bold
-            .candidat__image
-                height: 150px
-                width: 150px
-                display: block
-                margin: 10px auto
-                border-radius: 50%
+                height: 250px
+            @media (min-width: 812px)    
+                height: 220px
+                flex-basis: calc(100% / 3)
+            @media (min-width: 823px) 
+                height: 250px
+            @media (min-width: 1024px)
+                height: 350px
+            @media (min-width: 1366px)
+                height: 450px
+            .candidat__imgContainer        
+                flex-basis: 200px
+                position: relative
+                box-shadow: 0 0 10px 0 rgba(186,186,186,0.5)
+                @media (min-width: 768px)
+                    flex-basis: 150px
+                @media (min-width: 812px)
+                    flex-basis: 80px
+                @media (min-width: 1024px)
+                    flex-basis: 150px
+                @media (min-width: 1366px)
+                    flex-basis: 250px
+                .candidat__image
+                    border-radius: 50%
+                    position: absolute
+                    top: 50%
+                    left: 50%
+                    transform: translate(-50%,-50%)
+                    height: 150px
+                    width: 150px
+                    display: block
+                    @media (min-width: 768px)
+                        height: 100px
+                        width: 100px
+                    @media (min-width: 812px)
+                        height: 60px
+                        width: 60px
+                    @media (min-width: 1024px)
+                        height: 120px
+                        width: 120px
+                    @media (min-width: 1366px)
+                        height: 200px
+                        width: 200px
+            .candidat__personalInfo
+                flex-grow: 1
+                background-color: rgba(218, 223, 225, 1)
+                @media (min-width: 768px)
+                    flex-grow: 0
+                    flex-basis: 170px
+                    overflow: hidden
+                @media (min-width: 1024px)
+                   flex-grow: 1
+                .candidat__name
+                    margin: 5px 0 0 10px
+                    font-size: 18px
+                    position: relative
+                    @media (min-width: 812px)
+                        font-size:  14px
+                    @media (min-width: 1024px)
+                        font-size: 18px
+                    @media (min-width: 1366px)
+                        font-size: 24px
+                    &::before
+                        content: ""
+                        position: absolute
+                        bottom: -5px
+                        left: 0px
+                        width: 40px
+                        height: 3px
+                        background-color: #0a6aa6
+                        @media (min-width: 1366px)
+                            width: 60px
+                .candidat__location
+                    margin: 5px 0 0 10px
+                    font-size: 14px
+                    color: #5b5b5b
+                    @media (min-width: 812px)
+                        font-size: 12px
+                    @media (min-width: 1024px)
+                        font-size: 14px
+                    @media (min-width: 1366px)
+                        font-size: 18px
+                .candidat__desc
+                    margin: 5px 0 0 10px
+                    font-size: 14px
+                    width: 94%
+                    @media (min-width: 768px)
+                        font-size: 12px
+                        margin: 0px 0 0 10px
+                    @media (min-width: 812px)
+                        font-size: 9px
+                    @media (min-width: 823px) 
+                        font-size: 11px
+                    @media (min-width: 1024px)
+                        font-size: 13px
+                    @media (min-width: 1366px)
+                        font-size: 17px
+                .candidat__more
+                    margin: 5px 0 0 10px
+                    text-decoration: underline
+                    color: black
+                    display: block
+                    @media (min-width: 812px)
+                        font-size: 12px
+                        margin: 0px 0 0 10px
+                    @media (min-width: 1024px)
+                        font-size: 14px
+                    @media (min-width: 1366px)
+                        font-size: 18px
+                    
+
+
+
+
+
+
+
                 
