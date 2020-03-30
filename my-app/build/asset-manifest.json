@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/static/css/main.ce62ab1e.chunk.css",
+    "main.js": "/static/js/main.c03e06df.chunk.js",
+    "main.js.map": "/static/js/main.c03e06df.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.f8c5b4be.js",
+    "runtime-main.js.map": "/static/js/runtime-main.f8c5b4be.js.map",
+    "static/js/2.ed5d26c8.chunk.js": "/static/js/2.ed5d26c8.chunk.js",
+    "static/js/2.ed5d26c8.chunk.js.map": "/static/js/2.ed5d26c8.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.41e52e70c114d8d7968f4f1a2e8acd57.js": "/precache-manifest.41e52e70c114d8d7968f4f1a2e8acd57.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.ce62ab1e.chunk.css.map": "/static/css/main.ce62ab1e.chunk.css.map",
+    "static/js/2.ed5d26c8.chunk.js.LICENSE.txt": "/static/js/2.ed5d26c8.chunk.js.LICENSE.txt",
+    "static/media/WhiteHouse.png": "/static/media/WhiteHouse.dfcb95fc.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f8c5b4be.js",
+    "static/js/2.ed5d26c8.chunk.js",
+    "static/css/main.ce62ab1e.chunk.css",
+    "static/js/main.c03e06df.chunk.js"
+  ]
+}

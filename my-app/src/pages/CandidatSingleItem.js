@@ -3,7 +3,7 @@ import CandidatSingle from '../components/CandidatSingle'
 
 const CandidatSingleItem = ({location}) => {
     const props = location.aboutProps !== undefined ? location.aboutProps : ""
-    console.log(props)
+    
     return ( 
         
             <CandidatSingle id={props.id}
@@ -12,6 +12,8 @@ const CandidatSingleItem = ({location}) => {
                             image={props.image}
                             desc={props.desc}
                             prevPath={props.prevPath}
+                            path={props.path}
+                            twitterName={props.twitter_name}
                             url={props.url}/>
         
     );
