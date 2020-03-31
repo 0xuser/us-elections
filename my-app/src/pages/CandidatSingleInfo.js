@@ -48,7 +48,7 @@ class CandidatSingleInfo extends Component {
 
     render() {
         const {candidate} = this.state
-        const navLinkPropsPass = {"pathname": `/${this.state.candidate.id}`, aboutProps: {"id": this.state.candidate.id, "location": this.state.candidate.location, "name": this.state.candidate.name, "image": this.state.candidate.profile_image_full_url, "desc": this.state.candidate.description, "url": this.state.candidate.url, "prevPath": "/", "path": this.props.path, "twitter_name": this.state.candidate.twitter_name === "BernieSanders" ? "berniesanders" : this.state.candidate.twitter_name }}
+        const navLinkPropsPass = {"pathname": `candidat/${this.state.candidate.id}`, aboutProps: {"id": this.state.candidate.id, "location": this.state.candidate.location, "name": this.state.candidate.name, "image": this.state.candidate.profile_image_full_url, "desc": this.state.candidate.description, "url": this.state.candidate.url, "prevPath": "/", "path": this.props.path, "twitter_name": this.state.candidate.twitter_name === "BernieSanders" ? "berniesanders" : this.state.candidate.twitter_name }}
         
         return (
             <div className={`candidats__single candidat ${candidate.name === "Donald J. Trump" ? "candidat--big" : ""}`}>
