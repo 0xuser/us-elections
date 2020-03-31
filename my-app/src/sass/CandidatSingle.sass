@@ -12,8 +12,6 @@
         color: black
         text-decoration: none
         cursor: pointer
-       
-
     &__image
         height: 180px
         width: 180px
@@ -25,6 +23,8 @@
         text-align: center
         position: relative
         width: auto
+        @media (min-width: 1280px)
+                font-size: 30px
         &::before
             content: ""
             position: absolute
@@ -34,16 +34,30 @@
             height: 2px
             width: 60%
             background-color: black
+            @media (min-width: 1280px)
+                width: 15%
     &__container
         margin: 10px 0 10px 20px
         .candidatSingle__location
             font-size: 18px
             font-weight: bold
+            @media (min-width: 1280px)
+                font-size: 28px
         .candidatSingle__desc
             font-size: 16px
+            @media (min-width: 1280px)
+                font-size: 22px
         .candidatSingle__profile
             font-size: 16px
+            @media (min-width: 1280px)
+                font-size: 20px
             &--bold
                 font-weight: bold
                 font-size: 18px
+    &__chartsContainer, .charts
+        display: flex
+        flex-direction: column
+        flex-wrap: wrap
+        @media (min-width: 1280px)
+            flex-direction: row
         

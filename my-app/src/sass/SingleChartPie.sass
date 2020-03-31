@@ -1,5 +1,14 @@
 .charts__single
-    height: 300px
+    flex-basis: 400px
     width: 300px
     overflow: hidden
-    margin-bottom: 50px
+    margin: 10px auto
+    text-align: center
+    border: 1px solid black
+    @media (min-width: 1280px)
+        height: 400px
+        margin: 15px
+        flex-basis: calc(100%/3 - 30px)
+    .recharts-legend-wrapper
+        font-size: 18px
+        margin: auto

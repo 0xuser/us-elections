@@ -12,14 +12,14 @@ import ErrorPage from '../pages/ErrorPage'
 const Page = (props) => {
     return ( 
         <>
-        <Switch>
-            <Route path="/:id" component={CandidatSingleItem} />
-            <Route path="/" exact component={() => <CandidatsPage path={props.path}/>} />
-            <Route path="/summary" component={() => <SummaryPage path={props.path} />} />
-            <Route path="/search"  component={() => <SearchPage path={props.path} />} />
-            <Route path="/overall"  component={() => <OverallPage path={props.path} />} />
-            <Route component={ErrorPage} />
-        </Switch>
+            <Switch>
+                <Route path="/" exact component={() => <CandidatsPage path={props.path}/>} />
+                <Route path="/candidat/:id" component={CandidatSingleItem} />
+                <Route path="/summary" component={() => <SummaryPage path={props.path} />} />
+                <Route path="/search"  component={() => <SearchPage path={props.path} />} />
+                <Route path="/overall"  component={() => <OverallPage path={props.path} />} />
+                <Route component={ErrorPage} />
+            </Switch>
         </>
      );
 }

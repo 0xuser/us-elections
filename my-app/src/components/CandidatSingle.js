@@ -24,6 +24,9 @@ class CandidatSingle extends Component {
         })
     }
 
+
+   
+
     render(){
         return ( 
             <div className="candidatSingle">
@@ -37,9 +40,11 @@ class CandidatSingle extends Component {
                 </div>
                 <div className="candidatSingle__chartsContainer charts">
                     {this.state.data.length !== 0 ? 
-
-                    <SingleChartPie title="Wykres pozyztywne/negatywne/neutralne" data={[{"name": "classified_negative", "value": this.state.data[0].classified_negative}, {"name": "classified_neutral", "value": this.state.data[0].classified_neutral}, {"name": "classified_positive", "value": this.state.data[0].classified_positive}]}/>
-                    
+                    <>
+                        <SingleChartPie title="Ogólna charakterystyka" data={[{"name": "negatywne", "value": this.state.data[0].classified_negative}, {"name": "neutralne", "value": this.state.data[0].classified_neutral}, {"name": "pozytywne", "value": this.state.data[0].classified_positive}]} colors={["#FF0000", "#C0C0C0", "#228B22"]}/>
+                        <SingleChartPie title="Ogólna charakterystyka bez retweetow" data={[{"name": "negatywne", "value": this.state.data[0].classified_negative_without_retweets}, {"name": "neutralne", "value": this.state.data[0].classified_neutral_without_retweets}, {"name": "pozytywne", "value": this.state.data[0].classified_positive_without_retweets}]} colors={["#FF0000", "#C0C0C0", "#228B22"]}/>
+                        <SingleChartPie title="Ogólna liczba" data={[{"name": "liczba tweetow", "value": this.state.data[0].collected_tweets - this.state.data[0].retweets_in_collected}, {"name": "liczba retweetow", "value": this.state.data[0].retweets_in_collected}]} colors={["#8884d8", "#82ca9d"]}/>
+                    </>
                     : ""}
                 </div>
             </div>
