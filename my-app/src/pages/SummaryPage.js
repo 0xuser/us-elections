@@ -28,7 +28,7 @@ class SummaryPage extends Component{
 
     render(){
         const renderdCharts = this.state.data.map((single,index) =>  
-            <SingleChartBar key={index} data={{name: "poz/neu/neg", 
+            <SingleChartBar key={index} data={{ 
                                    candidat: single.name, 
                                    clas_poz: single.results.classified_positive, 
                                    clas_neu: single.results.classified_neutral, 
