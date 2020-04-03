@@ -1,30 +1,38 @@
 import React from 'react';
-import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Bar, ResponsiveContainer,LabelList} from 'recharts';
+import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Bar, ResponsiveContainer, LabelList, Legend} from 'recharts';
 import '../sass/SingleChartBar.sass'
 
 
 const SingleChartBar = (props) => {
-    const data = [
-        {
-          name: 'Ogolem', clas_poz: props.data.clas_poz, clas_neu: props.data.clas_neu, clas_neg: props.data.clas_neg
-        },
-        {
-          name: 'Ogolem bez retweetow', clas_poz_re: props.data.clas_poz_re, clas_neu_re: props.data.clas_neu_re, clas_neg_re: props.data.clas_neg_re
-        },
-        {
-          name: 'Ogolna liczba', col_tweets: props.data.col_tweets - props.data.col_retweets, col_retweets: props.data.col_retweets
-        }
-      ];
+    
 
-      const generateCandidatName = () => {
-        if(props.data.candidat === "realDonaldTrump") return "Donald Trump"
-        else if (props.data.candidat === "JoeBiden") return "Joe Biden"
-        else return "Bernie Sanders"
+      const data = [];
+
+      props.data.forEach(single => {
+        data.push(single)
+      })
+
+
+      const singleBar = () => {
+        const keys = [];
+        data.forEach((single,index) => index === 1 ? keys.push(Object.keys(single)) : "")
+        keys[0].splice(keys[0].indexOf("name"),1)
+        keys[0].splice(keys[0].indexOf("title"),1)
+      
+        const colors = ["#8884d8","#82ca9d", "#ff6361"];
+        const colorsAll = ["#bc5090","#ffa600"]
+
+        return keys[0].map((single,index) => 
+          <Bar key={index} dataKey={single} stackId="a" fill={keys[0][0] === "col_tweets" || keys[0][0] === "col_retweets" ? colorsAll[index] : colors[index]}>
+            <LabelList dataKey={single} position="inside" fill="white" />
+          </Bar>)
       }
+     
 
     return ( 
+      
         <div className="summary__single">
-            <h2>{generateCandidatName()}</h2>
+            <h2>{data[0].title}</h2>
             <ResponsiveContainer width="100%" height="90%">
             <BarChart
                 data={data}
@@ -36,38 +44,15 @@ const SingleChartBar = (props) => {
                 <XAxis dataKey="name"  tick={{fontSize: 12}}/>
                 <YAxis tick={{fontSize: 14}}/>
                 <Tooltip />
+                <Legend />
                 
-                <Bar dataKey="clas_poz" stackId="a" fill="#8884d8">
-                  <LabelList dataKey="clas_poz" position="middle" />
-                </Bar>
-                <Bar dataKey="clas_neu" stackId="a" fill="#82ca9d">
-                  <LabelList dataKey="clas_neu" position="middle" />  
-                </Bar>
-                <Bar dataKey="clas_neg" stackId="a" fill="#ff6361" >
-                  <LabelList dataKey="clas_neg" position="middle" />  
-                </Bar>
-
-                <Bar dataKey="clas_poz_re" stackId="a" fill="#8884d8" >
-                  <LabelList dataKey="clas_poz_re" position="middle" />  
-                </Bar>
-                <Bar dataKey="clas_neu_re" stackId="a" fill="#82ca9d" >
-                  <LabelList dataKey="clas_neu_re" position="middle" />  
-                </Bar>
-                <Bar dataKey="clas_neg_re" stackId="a" fill="#ff6361" >
-                  <LabelList dataKey="clas_neg_re" position="middle" />  
-                </Bar>
-
-                <Bar dataKey="col_tweets" stackId="a" fill="#bc5090" >
-                  <LabelList dataKey="col_tweets" position="middle" />  
-                </Bar>
-                <Bar dataKey="col_retweets" stackId="a" fill="#ffa600" >
-                  <LabelList dataKey="col_retweets" position="middle" />  
-                </Bar>
-
-               
+                {singleBar()}
+                
             </BarChart>
             </ResponsiveContainer>
+                
         </div>
+     
      );
 }
  
