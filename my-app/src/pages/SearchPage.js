@@ -16,7 +16,7 @@ class SearchPage extends Component {
     }
 
     render(){
-        const singleLink = this.state.data.map((single => <li className="search__singleItem">{single.search.slice(1,single.search.length)}</li>))
+        const singleLink = this.state.data.map((single => <li className="search__singleItem">{single.search}</li>))
         return (
             <div className="main__searchPage search">
                 <h2 className="search__title">Wyszukiwania, które śledzimy</h2>
