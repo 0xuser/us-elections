@@ -21,7 +21,7 @@ class DaysPicker extends React.Component {
     };
   }
 
-  handleDayClick(day) {
+  handleDayClick(day) {    
     const range = DateUtils.addDayToRange(day, this.state);
     this.setState(range);
   }
@@ -31,13 +31,12 @@ class DaysPicker extends React.Component {
   }
 
   addRange = () => {
-    this.props.updateData(this.state.from.toLocaleDateString("en-US"),this.state.to.toLocaleDateString("en-US"))
+    this.props.updateData(this.state.from.toLocaleDateString("en-EN",{year:"numeric",month:"2-digit", day:"2-digit"}),this.state.to.toLocaleDateString("en-EN",{year:"numeric",month:"2-digit", day:"2-digit"}))
   }
 
   render() {
     const { from, to } = this.state;
     const modifiers = { start: from, end: to };
-
     return (
       <div className="RangeExample">
         <DayPicker
