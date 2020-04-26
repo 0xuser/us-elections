@@ -9,23 +9,129 @@
     font-family: 'Montserrat', sans-serif
     min-width: 320px
     height: auto
-    overflow: hidden
+    overflow-x: hidden
     font-family: 'Baloo Chettan 2', cursive
     position: relative
     @media (min-width: 768px)
         display: flex
         flex-direction: row
+    &--active
+        height: 100vh
+        overflow: hidden
+        @media (min-width: 800px)
+            height: auto
+            
+.sidebar__button
+    border: none
+    background-color: transparent
+    color: black
+    height: 30px
+    width: 30px
+    font-size: 24px
+    margin: 10px 0 0 10px
+    @media (min-width: 800px)
+        display: none
 
-    
-    &__bar
+
+.allSidebar
+    height: 100%
+
+.app__sidebar, .sidebar
+    background-color: #6D7FCC
+    overflow: hidden
+    position: absolute
+    top: 0
+    left: 0
+    @media (min-width: 768px)
+        width: 300px
+        overflow: hidden
+    @media (min-width: 1280px)
+        width: 400px
+    &__closeIcon
         position: absolute
         top: 20px
-        left: 20px
+        right: 20px
+        z-index: 1
         font-size: 24px
         display: none
-        @media (min-width: 768px)
-            display: block
         &--active
             display: block
-            
-                
+            @media (min-width: 768px)
+                display: none
+    &__title
+        margin: 0 auto 10px auto
+        padding-top: 50px
+        font-size: 24px
+        padding-left: 20px
+        position: relative
+        @media (min-width: 768px)
+            padding-top: 20px
+        &::before
+            content: ""
+            position: absolute
+            bottom: -10px
+            left: 50%
+            transform: translateX(-50%)
+            height: 1px
+            width: 95%    
+            background-color: white     
+    &__authors
+        text-align: left
+        margin: 10px auto
+        padding-left: 20px
+        font-size: 14px
+        font-weight: normal
+        position: relative
+        &::before 
+            content: ""
+            position: absolute
+            top: -10px
+            left: 50%
+            transform: translateX(-50%)
+            height: 1px
+            width: 95%    
+            background-color: #3b5278      
+    &__nav, .nav
+        background-color: #7386D5
+        height: 160px
+        margin: 20px 9px
+        @media (min-width: 1280px)
+            height: 300px
+        .nav__list
+            list-style-type: none
+            width: 100%
+            display: flex
+            flex-direction: column
+            height: 100%
+            .nav__item
+                flex-basis: 25%
+                line-height: 40px
+                width: 100%
+                color: rgba(255,255,255,0.4)
+                margin: 0 auto
+                overflow: hidden
+                padding-left: 10px
+                @media (min-width: 1280px)
+                    line-height: 75px
+                &--big
+                    height: 100px
+                &:hover
+                    background-color: white
+                .nav__link
+                    text-decoration: none
+                    color: rgba(255,255,255,0.4)
+                    font-weight: normal
+                    &--active
+                        color: white
+                    .nav__linkContainer
+                        height: 100%
+                        &:hover
+                                color: #6D7FCC
+                        .nav__linkName
+                            font-size: 18px
+                            width: 300px
+                            overflow: hidden
+                            text-transform: uppercase
+                            letter-spacing: 0.5px
+                            @media (min-width: 1280px)
+                                font-size: 20px
